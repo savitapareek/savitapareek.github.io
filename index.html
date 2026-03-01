@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savita Pareek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #8B1A1A;
+      --dark: #111;
+      --body: #333;
+      --muted: #666;
+      --light: #999;
+      --border: #e4e4e4;
+      --bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--body);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      min-height: 100vh;
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      gap: 0 4rem;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      padding: 3.5rem 0 3rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Replace .photo-placeholder with <img class="photo"> once you have a photo */
+    .photo-placeholder {
+      width: 155px; height: 155px;
+      border-radius: 50%;
+      background: #ede9e4;
+      border: 2px solid var(--border);
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Lora', serif;
+      font-size: 2.4rem;
+      color: var(--light);
+    }
+    .photo {
+      width: 155px; height: 155px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .sidebar h1 {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem; font-weight: 400;
+      color: var(--dark); margin-bottom: 0.2rem;
+    }
+    .sidebar .role { font-size: 0.84rem; color: var(--muted); }
+    .sidebar .inst { font-size: 0.84rem; color: var(--muted); margin-bottom: 1.4rem; }
+
+    .sidebar nav {
+      display: flex; flex-direction: column; gap: 0.05rem;
+      width: 100%; margin-bottom: 1.6rem;
+    }
+    .sidebar nav a {
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--body); padding: 0.22rem 0;
+      transition: color 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--accent); text-decoration: none; }
+
+    .sidebar-links {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      font-size: 0.82rem;
+    }
+    .sidebar-links a { color: var(--muted); }
+    .sidebar-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── MAIN ── */
+    .main {
+      padding: 3.5rem 0 4rem;
+      border-left: 1px solid var(--border);
+      padding-left: 3rem;
+    }
+
+    section { margin-bottom: 2.8rem; }
+
+    section h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem; font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* BIO */
+    .bio p { font-size: 0.94rem; margin-bottom: 0.75rem; }
+    .bio p:last-child { margin-bottom: 0; }
+
+    /* PUBLICATIONS */
+    .pub-list {
+      list-style: decimal; padding-left: 1.4rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .pub-list li { font-size: 0.92rem; line-height: 1.55; }
+    .pub-title { font-weight: 400; color: var(--dark); }
+    .pub-authors { color: var(--muted); font-size: 0.87rem; }
+    .pub-venue { font-style: italic; color: var(--muted); font-size: 0.87rem; }
+    .pub-badge {
+      font-size: 0.74rem; font-style: normal;
+      color: var(--accent); font-weight: 600;
+    }
+    .pub-links { display: inline-flex; gap: 0.7rem; margin-top: 0.25rem; flex-wrap: wrap; }
+    .pub-links a { font-size: 0.79rem; font-weight: 600; color: var(--accent); }
+
+    .cite-box {
+      margin-top: 0.5rem;
+      background: #f7f6f4;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 0.7rem 0.9rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: pre;
+      line-height: 1.5;
+      display: none;
+    }
+
+    /* TEACHING */
+    .teach-group { margin-bottom: 1.2rem; }
+    .teach-group h3 {
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.45rem;
+    }
+    .teach-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .teach-list li {
+      font-size: 0.92rem;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    }
+    .teach-list li span { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+
+    /* CONTACT */
+    .contact p { font-size: 0.92rem; margin-bottom: 0.4rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 2rem 0;
+      font-size: 0.76rem; color: var(--light);
+      border-top: 1px solid var(--border);
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 660px) {
+      .wrapper { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--border); }
+      .main { border-left: none; padding-left: 0; padding-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- STEP 3: Replace the div below with <img class="photo" src="photo.jpg" alt="Savita Pareek"> -->
+    <div class="photo-placeholder">SP</div>
+
+    <h1>Savita Pareek</h1>
+    <div class="role">Postdoctoral Associate</div>
+    <div class="inst">MIT Sloan &amp; SERC</div>
+
+    <nav>
+      <a href="#about">about</a>
+      <a href="#publications">publications</a>
+      <a href="#teaching">teaching</a>
+      <a href="resume_Feb22.pdf" target="_blank">cv</a>
+      <a href="#contact">contact</a>
+      <a href="#misc">miscellaneous</a>
+    </nav>
+
+    <div class="sidebar-links">
+      <a href="mailto:savita97@mit.edu">savita97@mit.edu</a>
+      <a href="https://github.com/savitapareek" target="_blank">GitHub</a>
+      <!-- STEP 4: Replace # with your Google Scholar URL -->
+      <a href="#" target="_blank">Google Scholar</a>
+      <a href="https://xai-course.netlify.app" target="_blank">XAI Course ↗</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <section id="about">
+      <h2>About</h2>
+      <div class="bio">
+        <p>
+          I am a Postdoctoral Associate at MIT Sloan School of Management and the
+          Schwarzman College of Computing's <a href="https://computing.mit.edu/serc/" target="_blank">SERC</a> program,
+          working with <a href="#" target="_blank">Prof. Rahul Mazumder</a>
+          and <a href="#" target="_blank">Prof. Suzanne Flynn</a>.
+        </p>
+        <p>
+          My research develops interpretable machine learning methods and statistical inference
+          tools with applications in neurolinguistics, neuroimaging, and public health.
+          Current focus areas include explainable AI, likelihood-based inference,
+          differential privacy, and uncertainty quantification.
+        </p>
+        <p>
+          Previously I was a Postdoctoral Research Fellow at Auburn University with
+          <a href="#" target="_blank">Prof. Roberto Molinari</a>, where I developed the
+          DP-TOST framework for differentially private equivalence testing and led an NIH R21
+          grant proposal. Before that I was a Research Officer &amp; Manager at the Reserve
+          Bank of India. I received my Ph.D. in Statistics from IIT Bombay.
+        </p>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Publications &amp; Preprints</h2>
+      <ol class="pub-list">
+
+        <li>
+          <div class="pub-title">Equivalence Testing Under Privacy Constraints</div>
+          <div class="pub-authors">Pareek, S., Insolia, L., Molinari, R., and Guerrier, S.</div>
+          <div class="pub-venue"><em>Statistics in Medicine</em>, 2026 &nbsp;·&nbsp; <span class="pub-badge">Under Review</span></div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">Slides</a>
+            <a href="#">Code</a>
+            <a href="#" onclick="toggleCite('cite1'); return false;">Cite</a>
+          </div>
+          <div id="cite1" class="cite-box">@article{pareek2026equivalence,
+  title   = {Equivalence Testing Under Privacy Constraints},
+  author  = {Pareek, S. and Insolia, L. and Molinari, R. and Guerrier, S.},
+  journal = {Statistics in Medicine},
+  year    = {2026}
+}</div>
+        </li>
+
+        <li>
+          <div class="pub-title">Semiparametric Dynamic Copula Models for Portfolio Optimization</div>
+          <div class="pub-authors">Pareek, S. and Ghosh, S.</div>
+          <div class="pub-venue"><em>Journal of Data Science</em>, 2026 &nbsp;·&nbsp; <span class="pub-badge">Minor Revision</span></div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">Slides</a>
+            <a href="#" onclick="toggleCite('cite2'); return false;">Cite</a>
+          </div>
+          <div id="cite2" class="cite-box">@article{pareek2026copula,
+  title   = {Semiparametric Dynamic Copula Models for Portfolio Optimization},
+  author  = {Pareek, S. and Ghosh, S.},
+  journal = {Journal of Data Science},
+  year    = {2026}
+}</div>
+        </li>
+
+        <li>
+          <div class="pub-title">Likelihood-based inference for skewed responses in a crossover trial setup</div>
+          <div class="pub-authors">Pareek, S., Das, K., and Mukhopadhyay, S.</div>
+          <div class="pub-venue"><em>Communications in Statistics – Simulation and Computation</em>, 2025</div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">Slides</a>
+            <a href="#" onclick="toggleCite('cite3'); return false;">Cite</a>
+          </div>
+          <div id="cite3" class="cite-box">@article{pareek2025likelihood,
+  title   = {Likelihood-based inference for skewed responses in a crossover trial setup},
+  author  = {Pareek, S. and Das, K. and Mukhopadhyay, S.},
+  journal = {Communications in Statistics -- Simulation and Computation},
+  year    = {2025}
+}</div>
+        </li>
+
+        <li>
+          <div class="pub-title">The Effects of Psychosocial Stress on Surface Electromyography Signals of the Lower Leg During Isometric Contractions</div>
+          <div class="pub-authors">Eady, S., Ulloa, I. N., Pareek, S., and Zabala, M.</div>
+          <div class="pub-venue">Submitted, 2025</div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#" onclick="toggleCite('cite4'); return false;">Cite</a>
+          </div>
+          <div id="cite4" class="cite-box">@article{eady2025psychosocial,
+  title  = {The Effects of Psychosocial Stress on Surface Electromyography Signals
+            of the Lower Leg During Isometric Contractions},
+  author = {Eady, S. and Ulloa, I. N. and Pareek, S. and Zabala, M.},
+  year   = {2025}
+}</div>
+        </li>
+
+        <li>
+          <div class="pub-title">Likelihood-based missing data analysis in crossover trials</div>
+          <div class="pub-authors">Pareek, S., Das, K., and Mukhopadhyay, S.</div>
+          <div class="pub-venue"><em>Brazilian Journal of Probability and Statistics</em>, 2023</div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#">Slides</a>
+            <a href="#" onclick="toggleCite('cite5'); return false;">Cite</a>
+          </div>
+          <div id="cite5" class="cite-box">@article{pareek2023missing,
+  title   = {Likelihood-based missing data analysis in crossover trials},
+  author  = {Pareek, S. and Das, K. and Mukhopadhyay, S.},
+  journal = {Brazilian Journal of Probability and Statistics},
+  year    = {2023}
+}</div>
+        </li>
+
+        <li>
+          <div class="pub-title">Clustering gene expression time series data embedded in a non-parametric setup</div>
+          <div class="pub-authors">Pareek, S., Khetan, M., Mukhopadhyay, S., and Das, K.</div>
+          <div class="pub-venue"><em>Journal of Statistical Research</em> (Special Issue), 2021</div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#" onclick="toggleCite('cite6'); return false;">Cite</a>
+          </div>
+          <div id="cite6" class="cite-box">@article{pareek2021clustering,
+  title   = {Clustering gene expression time series data embedded in a non-parametric setup},
+  author  = {Pareek, S. and Khetan, M. and Mukhopadhyay, S. and Das, K.},
+  journal = {Journal of Statistical Research},
+  year    = {2021}
+}</div>
+        </li>
+
+        <li>
+          <div class="pub-title">Capturing e-commerce transactions from the travel group of BPM6: An Indian experience</div>
+          <div class="pub-authors">Misra, A., Pareek, S., and Saggar, S.</div>
+          <div class="pub-venue"><em>External Statistics in a Fragmented and Uncertain World</em>, BIS Vol. 62, 2024</div>
+          <div class="pub-links">
+            <a href="#">PDF</a>
+            <a href="#" onclick="toggleCite('cite7'); return false;">Cite</a>
+          </div>
+          <div id="cite7" class="cite-box">@incollection{misra2024capturing,
+  title     = {Capturing e-commerce transactions from the travel group of {BPM6}:
+               An Indian experience},
+  author    = {Misra, A. and Pareek, S. and Saggar, S.},
+  booktitle = {External Statistics in a Fragmented and Uncertain World},
+  volume    = {62},
+  publisher = {BIS},
+  year      = {2024}
+}</div>
+        </li>
+
+      </ol>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+
+      <div class="teach-group">
+        <h3>MIT</h3>
+        <ul class="teach-list">
+          <li>
+            <div>Interpretable &amp; Explainable ML &nbsp;·&nbsp; <a href="https://xai-course.netlify.app" target="_blank">Course site ↗</a></div>
+            <span>2025–Present</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="teach-group">
+        <h3>Auburn University — Instructor</h3>
+        <ul class="teach-list">
+          <li>
+            <div>Fundamentals of Statistical Inference I (STAT 5510/6610) &nbsp;·&nbsp; Eval: 5.8/6.0</div>
+            <span>Fall 2025</span>
+          </li>
+          <li>
+            <div>Introduction to Data Science (STAT 4000)</div>
+            <span>Spring 2025</span>
+          </li>
+          <li>
+            <div>Probability &amp; Statistics II (STAT 3610)</div>
+            <span>Fall 2024</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="teach-group">
+        <h3>IIT Bombay — Teaching Assistant</h3>
+        <ul class="teach-list">
+          <li>
+            <div>Introduction to Probability (SI 427)</div>
+            <span>Fall 2020</span>
+          </li>
+          <li>
+            <div>Regression Analysis (SI 422)</div>
+            <span>Spring 2019, 2020</span>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact">
+        <p><a href="mailto:savita97@mit.edu">savita97@mit.edu</a></p>
+        <p>MIT Sloan School of Management<br>Cambridge, MA 02142, USA</p>
+      </div>
+    </section>
+
+    <section id="misc">
+      <h2>Miscellaneous</h2>
+      <div class="bio">
+        <p>
+          I am a 500-hour certified yoga trainer (YTT) and 1000-hour SKY Coach.
+          I lead weekly yoga and wellness sessions at MIT Tang Hall residence and have
+          introduced over 2,000 people to mindful movement since 2020. Yoga is both
+          a personal practice and a way I build community wherever I live.
+        </p>
+        <p>
+          I grew up in India and have lived and worked across Mumbai, Auburn AL,
+          and now Cambridge MA. Outside of research I enjoy hiking, cooking,
+          and reading across statistics, philosophy, and fiction.
+        </p>
+        <p>
+          <strong>Website</strong> inspired by
+          <a href="https://www.cs.cornell.edu/~varshakishore/" target="_blank">Varsha Kishore</a>
+          and <a href="https://pappanna.github.io/" target="_blank">Anna Papp</a>.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2025 Savita Pareek</footer>
+
+</div>
+
+<script>
+  function toggleCite(id) {
+    var el = document.getElementById(id);
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+  }
+</script>
+
+</body>
+</html>
